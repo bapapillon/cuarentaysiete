@@ -12,6 +12,12 @@ const mockData = [
     backgroundColor: '#E8F3EC',
   },
   {
+    title: 'Otra vez visitas',
+    text:
+      'No habías más opción que recibirlos, por más que uno no quisiera. Eramos muchos nosotros pero ellos venían de tan lejos y de tan antes que no quedo opción. Tampoco era algo malo, pero ya por ser cosa de todos los días y al ser ellos siempre distintos y nosotros siempre los mismos, había una sensación común de no querer recibirlos más.\nSobre todo los que llegaban primeros tenían un aire de superioridad, de conocer todo y conocerlo ya.',
+    image: 'https://picsum.photos/600/400/?image=789',
+  },
+  {
     title: 'Las olas y el viento',
     text:
       'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque.',
@@ -54,8 +60,6 @@ const styles = {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#EEEEEE',
-    // backgroundColor: 'red',
-    // justifyContent: 'center',
     alignItems: 'center',
   },
 }
