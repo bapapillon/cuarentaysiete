@@ -1,1 +1,1 @@
-export default () => <div>Is a button</div>
+export default () => <button>Estoy listo</button>

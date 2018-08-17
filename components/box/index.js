@@ -1,30 +1,43 @@
+const imageStyle = {
+  height: 300,
+  width: 600,
+  objectFit: 'cover',
+}
+
+const boxStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  backgroundColor: 'white',
+  width: 600,
+  zIndex: 1,
+  marginBottom: 10,
+}
+
+const titleStyle = {
+  padding: 15,
+  fontSize: 20,
+  fontFamily: 'Open-Sans',
+  color: '#444',
+  textShadow: '',
+}
+
+const textStyle = {
+  padding: 15,
+  paddingTop: 0,
+  fontSize: 17,
+  fontFamily: 'Open-Sans',
+  color: '#444',
+  textAlign: 'justify',
+}
+
 export default ({ item = {} }) => {
-  const imageStyle = {
-    position: 'absolute',
-    opacity: 0.9,
-    height: 300,
-    width: 400,
-  }
-
-  const boxStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    height: 300,
-    width: 400,
-  }
-
-  const textStyle = {
-    flex: 1,
-    fontSize: 20,
-    fontFamily: 'Lato',
-    color: 'white',
-  }
-
   return (
     <div style={boxStyle}>
       <img src={item.image} style={imageStyle} />
 
       <div style={boxStyle}>
+        <div style={titleStyle}>{item.title}</div>
         <div style={textStyle}>{item.text}</div>
       </div>
     </div>

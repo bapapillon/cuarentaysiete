@@ -4,6 +4,7 @@ import Box from '../box'
 const gridStyle = {
   display: 'flex',
   flexWrap: 'wrap',
+  flexDirection: 'column',
 }
 
 export default class Grid extends Component {
@@ -12,11 +13,12 @@ export default class Grid extends Component {
 
     const images = data.map(item => item.image)
 
-    console.warn('data', data)
-    console.warn('images', images)
-
-    const nombre = 'Camilo'
-
-    return <div style={gridStyle}>{data.map(item => <Box item={item} />)}</div>
+    return (
+      <div style={gridStyle}>
+        {data.map(item => (
+          <Box item={item} />
+        ))}
+      </div>
+    )
   }
 }
