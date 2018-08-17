@@ -20,8 +20,7 @@ const mockData = [
   {
     title: 'La ventana',
     text:
-      'Oh la gran ciudad con sus grandes edificios que brotan debajo del cielo y lo tapan así como también tapan las nubes y tapan el sol y tapan el horizonte entonces para el ser humano pequeñito que camina por las calles lo único que se ve en la gran ciudad son los carteles es el cemento es el asfalto es un contenedor de basura una panadería una pizzería un cine un cartel que vende un perfume afrancesado un cartel con una foto del cielo que no se puede ver a menos que el hombresillo compre ese viaje y entonces el hombresillo que tiene muchas ganas de ver el cielo y que está cansado de los edificios se dirige a la agencia de viajes donde le informan de los aviones de las cabañas de maderas con desayuno continental y una ventana por sobre todas las cosas una ventana desde la cual durante su semana de vacaciones se le promete y se le garantiza la vista al cielo a las nubes al sol y al horizonte.
-',
+      'Oh la gran ciudad con sus grandes edificios que brotan debajo del cielo y lo tapan así como también tapan las nubes y tapan el sol y tapan el horizonte entonces para el ser humano pequeñito que camina por las calles lo único que se ve en la gran ciudad son los carteles es el cemento es el asfalto es un contenedor de basura una panadería una pizzería un cine un cartel que vende un perfume afrancesado un cartel con una foto del cielo que no se puede ver a menos que el hombresillo compre ese viaje y entonces el hombresillo que tiene muchas ganas de ver el cielo y que está cansado de los edificios se dirige a la agencia de viajes donde le informan de los aviones de las cabañas de maderas con desayuno continental y una ventana por sobre todas las cosas una ventana desde la cual durante su semana de vacaciones se le promete y se le garantiza la vista al cielo a las nubes al sol y al horizonte.',
     image: 'https://picsum.photos/600/300/?image=862',
   },
   {
