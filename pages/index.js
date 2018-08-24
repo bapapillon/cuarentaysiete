@@ -1,6 +1,7 @@
 import Head from 'next/head'
-
+import firebase from 'firebase'
 import Grid from '../components/grid'
+import Login from '../components/login'
 import Box from '../components/box'
 import Button from '../components/button'
 
@@ -57,6 +58,7 @@ export default () => (
     </Head>
     <Grid data={mockData} />
     <Button />
+    <Login />
   </div>
 )
 
