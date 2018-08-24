@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "firebase": "^5.4.1",
+    "firebaseui": "^3.4.0",
     "next": "^6.1.1",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-firebaseui": "^3.0.6"
   },
   "devDependencies": {},
   "scripts": {
