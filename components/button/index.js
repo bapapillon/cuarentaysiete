@@ -1,1 +1,1 @@
-export default () => <button>Estoy listo</button>;
+export default () => <button>Estoy listo</button>

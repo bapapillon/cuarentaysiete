@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import { database, auth } from '../../lib/firebase';
+import { Component } from 'react'
+import { database, auth } from '../../lib/firebase'
 
 const container = {
   display: 'flex',
@@ -13,7 +13,7 @@ const container = {
   backgroundColor: 'rgba(255,255,255,0.9)',
   width: '100%',
   minHeight: 50
-};
+}
 
 const writeSectionStyle = {
   display: 'flex',
@@ -21,13 +21,13 @@ const writeSectionStyle = {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center'
-};
+}
 
 const buttonStyle = {
   width: 120,
   fontSize: 16,
   margin: 15
-};
+}
 
 const textAreaStyle = {
   minHeight: 300,
@@ -35,36 +35,36 @@ const textAreaStyle = {
   padding: 30,
   margin: 30,
   fontSize: 16
-};
+}
 
 const imgStyle = {
   minHeight: 300,
   minWidth: 500
-};
+}
 
 class WriteSection extends Component {
   handleClick = () => {
-    this.setState({ writeModeEnabled: true });
-  };
+    this.setState({ writeModeEnabled: true })
+  }
 
   handleTextChange = event => {
-    this.setState({ text: event.target.value });
-  };
+    this.setState({ text: event.target.value })
+  }
 
   handleSubmit = () => {
-    let title = prompt('Elegí un título');
-    const postsRef = database.ref(`posts/${auth.currentUser.uid}`);
+    let title = prompt('Elegí un título')
+    const postsRef = database.ref(`posts/${auth.currentUser.uid}`)
 
-    console.log('a ver', postsRef, auth.currentUser);
+    console.log('a ver', postsRef, auth.currentUser)
 
     const newPostRef = postsRef.push().set({
       title,
       text: this.state.text
-    });
-  };
+    })
+  }
 
   render() {
-    const writeModeEnabled = this.state && this.state.writeModeEnabled;
+    const writeModeEnabled = this.state && this.state.writeModeEnabled
 
     return (
       <div style={container}>
@@ -83,8 +83,8 @@ class WriteSection extends Component {
           </div>
         )}
       </div>
-    );
+    )
   }
 }
 
-export default WriteSection;
+export default WriteSection

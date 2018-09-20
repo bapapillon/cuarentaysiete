@@ -1,7 +1,7 @@
 const imageStyle = {
   height: 300,
   width: 600,
-  objectFit: 'cover',
+  objectFit: 'cover'
 }
 
 const boxStyle = {
@@ -11,7 +11,7 @@ const boxStyle = {
   backgroundColor: 'white',
   width: 600,
   zIndex: 1,
-  marginBottom: 10,
+  marginBottom: 10
 }
 
 const titleStyle = {
@@ -19,7 +19,7 @@ const titleStyle = {
   fontSize: 20,
   fontFamily: 'Open-Sans',
   color: '#444',
-  textShadow: '',
+  textShadow: ''
 }
 
 const textStyle = {
@@ -28,7 +28,7 @@ const textStyle = {
   fontSize: 17,
   fontFamily: 'Open-Sans',
   color: '#444',
-  textAlign: 'justify',
+  textAlign: 'justify'
 }
 
 export default ({ item = {} }) => {
