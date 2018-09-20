@@ -1,12 +1,12 @@
-import { Component } from 'react';
-import { database } from '../lib/firebase';
-import Head from 'next/head';
-import firebase from 'firebase';
-import Grid from '../components/Grid';
-import Login from '../components/Login';
-import Box from '../components/Box';
-import Button from '../components/Button';
-import WriteSection from '../components/WriteSection';
+import { Component } from 'react'
+import { database } from '../lib/firebase'
+import Head from 'next/head'
+import firebase from 'firebase'
+import Grid from '../components/Grid'
+import Login from '../components/Login'
+import Box from '../components/Box'
+import Button from '../components/Button'
+import WriteSection from '../components/WriteSection'
 
 const mockData = [
   {
@@ -51,20 +51,20 @@ const mockData = [
       'Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum, necesitás estar seguro de que no hay nada avergonzante escondido en el medio del texto. Todos los generadores de Lorem Ipsum que se encuentran en Internet tienden a repetir trozos predefinidos cuando sea necesario, haciendo a este el único generador verdadero (válido) en la Internet.',
     image: 'https://picsum.photos/600/300/?image=400'
   }
-];
+]
 
 export default class App extends Component {
   state = {
     loggedUser: null
-  };
+  }
 
   handleAuthStateChanged = loggedUser => {
-    this.setState({ loggedUser });
-  };
+    this.setState({ loggedUser })
+  }
 
   render() {
-    const { loggedUser } = this.state;
-    console.log('a ver', loggedUser);
+    const { loggedUser } = this.state
+    console.log('a ver', loggedUser)
 
     return (
       <div style={styles.home}>
@@ -76,7 +76,7 @@ export default class App extends Component {
         {loggedUser && <WriteSection />}
         {!loggedUser && <Login user={loggedUser} onAuthStateChanged={this.handleAuthStateChanged} />}
       </div>
-    );
+    )
   }
 }
 
@@ -88,4 +88,4 @@ const styles = {
     backgroundColor: '#EEEEEE',
     alignItems: 'center'
   }
-};
+}
