@@ -10,9 +10,9 @@ const container = {
   position: 'fixed',
   bottom: 0,
   zIndex: 1,
-  backgroundColor: 'rgba(255,255,255,0.9)',
   width: '100%',
-  minHeight: 50
+  backgroundColor: '#00000080',
+  minHeight: 100
 }
 
 const writeSectionStyle = {
@@ -43,7 +43,18 @@ const imgStyle = {
 }
 
 class WriteSection extends Component {
-  handleClick = () => {
+  state = {
+    text: null,
+    writeModeEnabled: false
+  }
+
+  handleLogout = () => {
+    auth.signOut().then(() => {
+      window.location.reload()
+    })
+  }
+
+  handleReady = () => {
     this.setState({ writeModeEnabled: true })
   }
 
@@ -57,10 +68,15 @@ class WriteSection extends Component {
 
     console.log('a ver', postsRef, auth.currentUser)
 
-    const newPostRef = postsRef.push().set({
-      title,
-      text: this.state.text
-    })
+    const newPostRef = postsRef
+      .push()
+      .set({
+        title,
+        text: this.state.text
+      })
+      .then(() => {
+        this.setState({ writeModeEnabled: false, text: null })
+      })
   }
 
   render() {
@@ -69,9 +85,14 @@ class WriteSection extends Component {
     return (
       <div style={container}>
         {!writeModeEnabled && (
-          <button style={buttonStyle} onClick={this.handleClick}>
-            Estoy listo!
-          </button>
+          <div>
+            <button style={buttonStyle} onClick={this.handleReady}>
+              Estoy listo!
+            </button>
+            <button style={buttonStyle} onClick={this.handleLogout}>
+              Logout
+            </button>
+          </div>
         )}
         {writeModeEnabled && (
           <div style={writeSectionStyle}>

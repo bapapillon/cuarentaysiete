@@ -22,8 +22,10 @@ const uiConfig = {
 
 const loginStyle = {
   position: 'fixed',
-  bottom: 1,
-  zIndex: 999
+  bottom: 0,
+  zIndex: 999,
+  width: '100%',
+  backgroundColor: '#00000080'
 }
 
 export default class SignInScreen extends React.Component {
