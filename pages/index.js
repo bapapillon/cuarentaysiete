@@ -1,4 +1,6 @@
 import { Component } from 'react'
+import { map, values, flatten } from 'lodash'
+
 import { database } from '../lib/firebase'
 import Head from 'next/head'
 import firebase from 'firebase'
@@ -55,16 +57,30 @@ const mockData = [
 
 export default class App extends Component {
   state = {
-    loggedUser: null
+    loggedUser: null,
+    allTexts: []
   }
 
   handleAuthStateChanged = loggedUser => {
     this.setState({ loggedUser })
   }
 
+  componentDidMount() {
+    // TODO: change order
+    database.ref('posts').on(
+      'value',
+      snapshot => {
+        const textByUser = snapshot.val()
+        const allTexts = flatten(map(textByUser, texts => values(texts)))
+        this.setState({ allTexts })
+      },
+      err => console.error(err)
+    )
+  }
+
   render() {
     const { loggedUser } = this.state
-    console.log('a ver', loggedUser)
+    const data = this.state.allTexts.concat(mockData)
 
     return (
       <div style={styles.home}>
@@ -72,7 +88,7 @@ export default class App extends Component {
           <title>1001 caracteres</title>
           <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" />
         </Head>
-        <Grid data={mockData} />
+        <Grid data={data} />
         {loggedUser && <WriteSection />}
         {!loggedUser && <Login user={loggedUser} onAuthStateChanged={this.handleAuthStateChanged} />}
       </div>
