@@ -32,9 +32,11 @@ const textStyle = {
 }
 
 export default ({ item = {} }) => {
+  const { imageID, imageUrl } = item
+
   return (
     <div style={boxStyle}>
-      <img src={item.image} style={imageStyle} />
+      <img src={imageUrl || `https://picsum.photos/600/300/?image=${item.imageID}`} style={imageStyle} />
 
       <div style={boxStyle}>
         <div style={titleStyle}>{item.title}</div>

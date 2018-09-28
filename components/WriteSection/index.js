@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import { random } from 'lodash'
 import { database, auth } from '../../lib/firebase'
 
 const container = {
@@ -55,7 +56,7 @@ class WriteSection extends Component {
   }
 
   handleReady = () => {
-    this.setState({ writeModeEnabled: true })
+    this.setState({ writeModeEnabled: true, imageID: random(1000) })
   }
 
   handleTextChange = event => {
@@ -63,24 +64,28 @@ class WriteSection extends Component {
   }
 
   handleSubmit = () => {
+    const { text, imageID } = this.state
     let title = prompt('Elegí un título')
     const postsRef = database.ref(`posts/${auth.currentUser.uid}`)
 
-    console.log('a ver', postsRef, auth.currentUser)
+    const timestamp = Date.now()
 
     const newPostRef = postsRef
       .push()
       .set({
         title,
-        text: this.state.text
+        text,
+        imageID,
+        timestamp
       })
       .then(() => {
-        this.setState({ writeModeEnabled: false, text: null })
+        this.setState({ writeModeEnabled: false, imageID: null, text: null })
       })
   }
 
   render() {
-    const writeModeEnabled = this.state && this.state.writeModeEnabled
+    const { writeModeEnabled, imageID } = this.state
+    const imageUrl = imageID ? `https://picsum.photos/600/300/?image=${imageID}` : null
 
     return (
       <div style={container}>
@@ -96,7 +101,7 @@ class WriteSection extends Component {
         )}
         {writeModeEnabled && (
           <div style={writeSectionStyle}>
-            <img style={imgStyle} src="https://picsum.photos/600/300/?image=109" />
+            <img style={imgStyle} src={imageUrl} />
             <textarea style={textAreaStyle} value={this.state.text} onChange={this.handleTextChange} />
             <button style={buttonStyle} onClick={this.handleSubmit}>
               Enviar
