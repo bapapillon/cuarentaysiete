@@ -87,6 +87,8 @@ class WriteSection extends Component {
     const { writeModeEnabled, imageID } = this.state
     const imageUrl = imageID ? `https://picsum.photos/600/300/?image=${imageID}` : null
 
+    const containerStyle = { ...container, height: writeModeEnabled ? '100%' : undefined }
+
     return (
       <div style={container}>
         {!writeModeEnabled && (
