@@ -83,6 +83,10 @@ class WriteSection extends Component {
       })
   }
 
+  handleImageLoadError = () => {
+    this.setState({ imageID: random(1000) })
+  }
+
   render() {
     const { writeModeEnabled, imageID } = this.state
     const imageUrl = imageID ? `https://picsum.photos/600/300/?image=${imageID}` : null
@@ -103,7 +107,7 @@ class WriteSection extends Component {
         )}
         {writeModeEnabled && (
           <div style={writeSectionStyle}>
-            <img style={imgStyle} src={imageUrl} />
+            <img style={imgStyle} src={imageUrl} onError={this.handleImageLoadError} />
             <textarea style={textAreaStyle} value={this.state.text} onChange={this.handleTextChange} />
             <button style={buttonStyle} onClick={this.handleSubmit}>
               Enviar
