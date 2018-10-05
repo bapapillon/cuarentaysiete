@@ -9,6 +9,21 @@ const container = {
   justifyContent: 'center',
   alignItems: 'center',
   position: 'fixed',
+  top: 0,
+  bottom: 0,
+  zIndex: 1,
+  width: '100%',
+  backgroundColor: '#00000080',
+  minHeight: 100
+}
+
+const buttonsContainer = {
+  display: 'flex',
+  flexWrap: 'wrap',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'fixed',
   bottom: 0,
   zIndex: 1,
   width: '100%',
@@ -30,23 +45,63 @@ const buttonStyle = {
   margin: 15
 }
 
-const textAreaStyle = {
+const textAreaContainerStyle = {
+  position: 'relative',
   minHeight: 300,
-  minWidth: 500,
-  padding: 30,
+  minWidth: 600,
   margin: 30,
   fontSize: 16
 }
 
-const imgStyle = {
+const textAreaStyle = {
+  position: 'relative',
   minHeight: 300,
+  minWidth: 600,
+  fontSize: 16,
+  padding: 30,
+  width: 'calc(100% - 60px)',
+  height: '300px'
+}
+
+const imgStyle = {
+  minHeight: 320,
   minWidth: 500
+}
+
+const overlayStyle = {
+  position: 'absolute',
+  top: 0,
+  bottom: 0,
+  right: 0,
+  left: 0,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+}
+
+const timerStyle = {
+  fontSize: 100
+}
+
+const Status = {
+  INITIAL: 'INITIAL',
+  SHOWING_IMAGE: 'SHOWING_IMAGE',
+  READY_TO_WRITE: 'READY_TO_WRITE'
 }
 
 class WriteSection extends Component {
   state = {
     text: null,
-    writeModeEnabled: false
+    status: Status.INITIAL
+  }
+
+  componentDidMount() {
+    // this.handleReady()
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeout)
+    clearInterval(this.timerInterval)
   }
 
   handleLogout = () => {
@@ -56,7 +111,15 @@ class WriteSection extends Component {
   }
 
   handleReady = () => {
-    this.setState({ writeModeEnabled: true, imageID: random(1000) })
+    this.setState({ status: Status.SHOWING_IMAGE, imageID: random(1000), timer: 10 })
+    this.timeout = setTimeout(() => {
+      clearInterval(this.timerInterval)
+      this.setState({ status: Status.READY_TO_WRITE, timer: null })
+    }, 10000)
+
+    this.timerInterval = setInterval(() => {
+      this.setState(state => ({ ...state, timer: state.timer - 1 }))
+    }, 1000)
   }
 
   handleTextChange = event => {
@@ -79,7 +142,7 @@ class WriteSection extends Component {
         timestamp
       })
       .then(() => {
-        this.setState({ writeModeEnabled: false, imageID: null, text: null })
+        this.setState({ status: Status.INITIAL, imageID: null, text: null })
       })
   }
 
@@ -88,14 +151,15 @@ class WriteSection extends Component {
   }
 
   render() {
-    const { writeModeEnabled, imageID } = this.state
+    const { status, imageID, timer } = this.state
     const imageUrl = imageID ? `https://picsum.photos/600/300/?image=${imageID}` : null
 
-    const containerStyle = { ...container, height: writeModeEnabled ? '100%' : undefined }
+    const containerStyle = { ...container, height: status === Status.INITIAL ? undefined : '100%' }
+    const textAreaDisabled = status !== Status.READY_TO_WRITE
 
-    return (
-      <div style={container}>
-        {!writeModeEnabled && (
+    if (status === Status.INITIAL) {
+      return (
+        <div style={buttonsContainer}>
           <div>
             <button style={buttonStyle} onClick={this.handleReady}>
               Estoy listo!
@@ -104,11 +168,28 @@ class WriteSection extends Component {
               Logout
             </button>
           </div>
-        )}
-        {writeModeEnabled && (
+        </div>
+      )
+    }
+
+    return (
+      <div style={container}>
+        {status !== Status.INITIAL && (
           <div style={writeSectionStyle}>
             <img style={imgStyle} src={imageUrl} onError={this.handleImageLoadError} />
-            <textarea style={textAreaStyle} value={this.state.text} onChange={this.handleTextChange} />
+            <div style={textAreaContainerStyle}>
+              <textarea
+                disabled={textAreaDisabled}
+                style={textAreaStyle}
+                value={this.state.text}
+                onChange={this.handleTextChange}
+              />
+              {timer && (
+                <div style={overlayStyle}>
+                  <h3 style={timerStyle}>{timer}</h3>
+                </div>
+              )}
+            </div>
             <button style={buttonStyle} onClick={this.handleSubmit}>
               Enviar
             </button>
