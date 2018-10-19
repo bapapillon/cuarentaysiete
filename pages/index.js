@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { map, values, flatten } from 'lodash'
+import { map, values, flatten, orderBy } from 'lodash'
 
 import { database } from '../lib/firebase'
 import Head from 'next/head'
@@ -30,19 +30,15 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    // TODO: change order
-    database
-      .ref('posts')
-      .orderByChild('timestamp')
-      .on(
-        'value',
-        snapshot => {
-          const textByUser = snapshot.val()
-          const allTexts = flatten(map(textByUser, texts => values(texts)))
-          this.setState({ allTexts })
-        },
-        err => console.error(err)
-      )
+    database.ref('posts').on(
+      'value',
+      snapshot => {
+        const textByUser = snapshot.val()
+        const allTexts = orderBy(flatten(map(textByUser, texts => values(texts))), 'timestamp', 'desc')
+        this.setState({ allTexts })
+      },
+      err => console.error(err)
+    )
   }
 
   render() {
