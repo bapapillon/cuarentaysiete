@@ -13,7 +13,7 @@ const container = {
   bottom: 0,
   zIndex: 1,
   width: '100%',
-  backgroundColor: '#00000080',
+  backgroundColor: '#000000C0',
   minHeight: 100
 }
 
@@ -27,7 +27,7 @@ const buttonsContainer = {
   bottom: 0,
   zIndex: 1,
   width: '100%',
-  backgroundColor: '#00000080',
+  backgroundColor: '#000000C0',
   minHeight: 100
 }
 
