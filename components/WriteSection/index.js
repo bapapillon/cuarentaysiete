@@ -40,7 +40,9 @@ const writeSectionStyle = {
 }
 
 const buttonStyle = {
-  width: 120,
+  minWidth: 120,
+  padding: 10,
+  borderRadius: 5,
   fontSize: 16,
   margin: 15
 }
@@ -86,8 +88,12 @@ const timerStyle = {
 const Status = {
   INITIAL: 'INITIAL',
   SHOWING_IMAGE: 'SHOWING_IMAGE',
-  READY_TO_WRITE: 'READY_TO_WRITE'
+  READY_TO_WRITE: 'READY_TO_WRITE',
+  READY_TO_SEND: 'READY_TO_SEND'
 }
+
+const IMAGE_COUNTDOWN_IN_SECONDS = 10
+const TEXT_COUNTDOWN_IN_SECONDS = 300
 
 class WriteSection extends Component {
   state = {
@@ -111,11 +117,26 @@ class WriteSection extends Component {
   }
 
   handleReady = () => {
-    this.setState({ status: Status.SHOWING_IMAGE, imageID: random(1000), timer: 10 })
+    this.setState({ status: Status.SHOWING_IMAGE, imageID: random(1000), timer: IMAGE_COUNTDOWN_IN_SECONDS })
     this.timeout = setTimeout(() => {
       clearInterval(this.timerInterval)
-      this.setState({ status: Status.READY_TO_WRITE, timer: null })
-    }, 10000)
+      this.setState({ status: Status.READY_TO_WRITE, timer: null }, this.startCountdown)
+    }, IMAGE_COUNTDOWN_IN_SECONDS * 1000)
+
+    this.timerInterval = setInterval(() => {
+      this.setState(state => ({ ...state, timer: state.timer - 1 }))
+    }, 1000)
+  }
+
+  startCountdown = () => {
+    clearTimeout(this.timeout)
+    clearInterval(this.timerInterval)
+
+    this.setState({ timer: TEXT_COUNTDOWN_IN_SECONDS })
+    this.timeout = setTimeout(() => {
+      clearInterval(this.timerInterval)
+      this.setState({ status: Status.READY_TO_SEND, timer: null })
+    }, TEXT_COUNTDOWN_IN_SECONDS * 1000)
 
     this.timerInterval = setInterval(() => {
       this.setState(state => ({ ...state, timer: state.timer - 1 }))
@@ -184,15 +205,21 @@ class WriteSection extends Component {
                 value={this.state.text}
                 onChange={this.handleTextChange}
               />
-              {timer && (
-                <div style={overlayStyle}>
-                  <h3 style={timerStyle}>{timer}</h3>
-                </div>
-              )}
+              {status === Status.SHOWING_IMAGE &&
+                timer && (
+                  <div style={overlayStyle}>
+                    <h3 style={timerStyle}>{timer}</h3>
+                  </div>
+                )}
             </div>
-            <button style={buttonStyle} onClick={this.handleSubmit}>
-              Enviar
-            </button>
+            <div>
+              {status === Status.READY_TO_WRITE && (
+                <button style={buttonStyle}>Quedan {this.state.timer} segundos</button>
+              )}
+              <button style={buttonStyle} onClick={this.handleSubmit}>
+                Enviar
+              </button>
+            </div>
           </div>
         )}
       </div>
